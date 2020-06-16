@@ -57,10 +57,17 @@ public class TapController : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
         {
             jumpAudio.Play();
-            //Time.timeScale += 1;
             transform.rotation = forwardRotation;
             rigidbody.velocity = Vector3.zero;
             rigidbody.AddForce(Vector2.up * tapForce, ForceMode2D.Force);
+        }
+        if(Input.GetKey(KeyCode.RightArrow))
+        {
+            rigidbody.AddForce(Vector2.right, ForceMode2D.Force);
+        }
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            rigidbody.AddForce(Vector2.left, ForceMode2D.Force);
         }
         transform.rotation = Quaternion.Lerp(transform.rotation, downRotation, tiltSmooth * Time.deltaTime);
     }
@@ -72,7 +79,7 @@ public class TapController : MonoBehaviour
             OnPlayerScored();//event sent to GameManager;
             scoreAudio.Play();
         }
-        if (col.gameObject.tag == "DeadZone")
+        if(col.gameObject.tag == "DeadZone")
         {
             dieAudio.Play();
             rigidbody.simulated = false;
